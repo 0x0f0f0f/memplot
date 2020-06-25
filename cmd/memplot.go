@@ -40,8 +40,8 @@ func main() {
 	// To plot or not VSZ
 	flag.BoolVar(&opts.PlotVsz, "vsz", false, "plot virtual size")
 
-	widthStr := flag.String("w", "16cm", "plot image width (can be cm or in)")
-	heightStr := flag.String("h", "12cm", "plot image height (can be cm or in)")
+	widthStr := flag.String("width", "16cm", "plot image width (can be cm or in)")
+	heightStr := flag.String("height", "12cm", "plot image height (can be cm or in)")
 
 	flag.Parse()
 
