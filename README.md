@@ -31,4 +31,7 @@ Usage of memplot:
 ```
 
 ## Example Plot 
+```
+memplot -pid 25273 -width 8in -height 8in -dur 60s -sd 50ms -o plot.png
+```
 ![](https://raw.githubusercontent.com/0x0f0f0f/memplot/master/plot.png)
