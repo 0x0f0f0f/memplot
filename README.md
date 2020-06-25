@@ -2,6 +2,8 @@
 
 A small utility written in golang to quickly plot memory usage of processes.
 Still in a very early stage.
+`memplot` constantly samples memory usage of a process, for a given 
+duration of time and then outputs a .png file. Painless and straightforward.
 
 ## Installation
 ```
