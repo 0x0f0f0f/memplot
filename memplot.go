@@ -122,6 +122,7 @@ func (m *MemoryCollection) Plot(opt PlotOptions) (*plot.Plot, error) {
 		p.Legend.Add("RSS", rssLine)
 	}
 
+	// TODO add another Y axis for vsz
 	if opt.PlotVsz {
 		// RSS line plotter and style
 		vszData := m.GatherVSZXYs()
