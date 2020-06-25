@@ -4,7 +4,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/0x0f0f0f/memplot"
+	"github.com/0x0f0f0f/memplot/memplot"
 	"gonum.org/v1/plot/vg"
 	"os"
 	"time"
