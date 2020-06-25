@@ -14,7 +14,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: linux
-        CMD_PATH: cmd/main.go
+        CMD_PATH: cmd/memplot.go
         EXTRA_FILES: "LICENSE"
   release-linux-amd64:
     name: release linux/amd64
@@ -27,7 +27,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: linux
-        CMD_PATH: cmd/main.go
+        CMD_PATH: cmd/memplot.go
         EXTRA_FILES: "LICENSE"
   release-linux-arm:
     name: release linux/386
@@ -40,7 +40,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "arm"
         GOOS: linux
-        CMD_PATH: cmd/main.go
+        CMD_PATH: cmd/memplot.go
         EXTRA_FILES: "LICENSE"
   release-linux-arm64:
     name: release linux/amd64
@@ -53,7 +53,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: arm64
         GOOS: linux
-        CMD_PATH: cmd/main.go
+        CMD_PATH: cmd/memplot.go
         EXTRA_FILES: "LICENSE"
   release-darwin-amd64:
     name: release darwin/amd64
@@ -66,7 +66,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: darwin
-        CMD_PATH: cmd/main.go
+        CMD_PATH: cmd/memplot.go
         EXTRA_FILES: "LICENSE"
   release-windows-386:
     name: release windows/386
@@ -79,7 +79,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: windows
-        CMD_PATH: cmd/main.go
+        CMD_PATH: cmd/memplot.go
         EXTRA_FILES: "LICENSE"
   release-windows-amd64:
     name: release windows/amd64
@@ -92,5 +92,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: windows
-        CMD_PATH: cmd/main.go
+        CMD_PATH: cmd/memplot.go
         EXTRA_FILES: "LICENSE"
