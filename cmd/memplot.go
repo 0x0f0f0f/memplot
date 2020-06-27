@@ -52,7 +52,7 @@ func main() {
 		".png, .svg, .tex, .tif and .tiff\n")
 	sdPtr := flag.Duration("sd", defaultSd, "sample size in time")
 	durPtr := flag.Duration("dur", defaultDur, "total profiling time. a value of 0 means"+
-		" that the program will be sampled until it exits")
+		" that the program\nwill be sampled until it is no longer running")
 	// To plot or not VSZ
 	flag.BoolVar(&opts.PlotVsz, "vsz", false, "plot virtual size")
 	widthStr := flag.String("width", "16cm", "plot image width (can be cm or in)")
@@ -95,7 +95,8 @@ func main() {
 	// Create and sample
 	fmt.Fprintln(os.Stderr, "Collecting data from PID", *pidPtr, "...")
 	if *durPtr == 0 {
-		fmt.Fprintln(os.Stderr, "Warning: sampling will continue until program is no longer running")
+		fmt.Fprintln(os.Stderr, "Warning: sampling will continue"+
+			"until program is no longer running")
 	}
 	coll, err := memplot.NewCollection(int32(*pidPtr), *sdPtr, *durPtr)
 	check(err)

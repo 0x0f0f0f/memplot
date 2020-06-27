@@ -14,17 +14,16 @@ go get -u -v github.com/0x0f0f0f/memplot/cmd
 
 ```
 Usage of memplot:
-Any argument following the options will be interpreted as the command to spawn and sample
+Arguments following options will be interpreted as the command to spawn and sample
   -dur duration
-    	total profiling time (default 10s)
+    	total profiling time. a value of 0 means that the program
+    	will be sampled until it is no longer running
   -height string
     	plot image height (can be cm or in) (default "12cm")
   -o string
-        output image file name. supported extensions are:
-        .eps, .jpg, .jpeg, .pdf, .png, .svg, .tex, .tif and .tiff
-        (default "output-plot.png")
-  -o string
-    	output image file name (default "output-plot.png")
+    	output image file name. supported extensions are:
+    	.eps, .jpg, .jpeg, .pdf, .png, .svg, .tex, .tif and .tiff
+    	(default "output-plot.png")
   -pid int
     	pid of the process to analyze (default -1)
   -sd duration
