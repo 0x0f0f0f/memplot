@@ -26,7 +26,7 @@ func main() {
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
-		fmt.Fprintf(os.Stderr, "Any argument following the options will be"+
+		fmt.Fprintf(os.Stderr, "Arguments following options will be"+
 			" interpreted as the command to spawn and sample\n")
 		flag.PrintDefaults()
 	}
@@ -40,7 +40,9 @@ func main() {
 
 	defaultFilename := "output-plot.png"
 	pidPtr := flag.Int("pid", -1, "pid of the process to analyze")
-	filenamePtr := flag.String("o", defaultFilename, "output image file name")
+	filenamePtr := flag.String("o", defaultFilename, "output image file name. "+
+		"supported extensions are:\n.eps, .jpg, .jpeg, .pdf, "+
+		".png, .svg, .tex, .tif and .tiff\n")
 	sdPtr := flag.Duration("sd", defaultSd, "sample size in time")
 	durPtr := flag.Duration("dur", defaultDur, "total profiling time")
 
