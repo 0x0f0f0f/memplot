@@ -6,6 +6,8 @@ amount of time and then outputs an image file. Painless and straightforward.
 Supported image extensions are: .eps, .jpg, .jpeg, .pdf, .png, .svg, .tex, .tif and .tiff
 
 ## Installation
+Binaries for Linux and MacOS are available in the
+[releases](https://github.com/0x0f0f0f/memplot/releases) page
 ```
 go get -u -v github.com/0x0f0f0f/memplot/cmd
 ```
