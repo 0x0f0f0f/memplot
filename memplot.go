@@ -12,22 +12,22 @@ import (
 )
 
 // Memory data for a given instant
-type MemoryInstant struct {
+type Instant struct {
 	MemoryInfo *process.MemoryInfoStat
 	Instant    time.Duration
 }
 
-type MemoryCollection struct {
+type Collection struct {
 	Pid            int32
 	StartTime      time.Time
 	SampleDuration time.Duration // Time between samples
-	Samples        []MemoryInstant
+	Samples        []Instant
 }
 
 // Gather a process resident size in memory in batch
-func NewMemoryCollection(pid int32, sd, duration time.Duration) (*MemoryCollection, error) {
-	numsamples := duration / sd
-	if numsamples < 2 {
+func NewCollection(pid int32, sd, dur time.Duration) (*Collection, error) {
+	numsamples := dur / sd
+	if dur != 0 && numsamples < 2 {
 		return nil, errors.New("There must be at least two samples. Sample Duration too short")
 	}
 
@@ -38,36 +38,42 @@ func NewMemoryCollection(pid int32, sd, duration time.Duration) (*MemoryCollecti
 
 	start := time.Now()
 	var mem *process.MemoryInfoStat
-	coll := &MemoryCollection{
+	coll := &Collection{
 		Pid:            pid,
 		StartTime:      start,
 		SampleDuration: sd,
-		Samples:        make([]MemoryInstant, 0),
+		Samples:        make([]Instant, 0),
 	}
 
-	for elapsed := time.Since(start); elapsed <= duration; elapsed = time.Since(start) {
-		elapsed = time.Since(start)
+	// el = elapsed time, dur = total duration
+	running, err := proc.IsRunning()
+	if err != nil {
+		return nil, err
+	}
+	for el := time.Since(start); (dur == 0 || el <= dur) && running; el = time.Since(start) {
 		mem, err = proc.MemoryInfo()
 		if err != nil {
 			return nil, err
 		}
 
-		instant := MemoryInstant{
+		instant := Instant{
 			MemoryInfo: mem,
-			Instant:    elapsed,
+			Instant:    el,
 		}
-
-		// fmt.Printf("instant=%+v\n", instant)
 
 		coll.Samples = append(coll.Samples, instant)
 		time.Sleep(sd)
+		running, err = proc.IsRunning()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return coll, nil
 }
 
 // Gather RSS points from a memory collection
-func (m *MemoryCollection) GatherRSSXYs() plotter.XYs {
+func (m *Collection) GatherRSSXYs() plotter.XYs {
 	pts := make(plotter.XYs, len(m.Samples))
 	for i, s := range m.Samples {
 		pts[i].X = s.Instant.Seconds()
@@ -78,7 +84,7 @@ func (m *MemoryCollection) GatherRSSXYs() plotter.XYs {
 }
 
 // Gather VSZ points from a memory collection
-func (m *MemoryCollection) GatherVSZXYs() plotter.XYs {
+func (m *Collection) GatherVSZXYs() plotter.XYs {
 	pts := make(plotter.XYs, len(m.Samples))
 	for i, s := range m.Samples {
 		pts[i].X = s.Instant.Seconds()
@@ -94,7 +100,7 @@ type PlotOptions struct {
 }
 
 // Plot a memory collection
-func (m *MemoryCollection) Plot(opt PlotOptions) (*plot.Plot, error) {
+func (m *Collection) Plot(opt PlotOptions) (*plot.Plot, error) {
 	p, err := plot.New()
 	if err != nil {
 		return nil, err
