@@ -35,4 +35,8 @@ Any argument following the options will be interpreted as the command to spawn a
 ```
 memplot -pid 25273 -width 8in -height 8in -dur 60s -sd 50ms -o plot.png
 ```
+or 
+```
+memplot -width 8in -height 8in -dur 60s -sd 50ms -o plot.png firefox
+```
 ![](https://raw.githubusercontent.com/0x0f0f0f/memplot/master/plot.png)
