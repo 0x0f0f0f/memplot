@@ -43,3 +43,10 @@ or
 memplot -width 8in -height 8in -dur 60s -sd 50ms -o plot.png firefox
 ```
 ![](https://raw.githubusercontent.com/0x0f0f0f/memplot/master/plot.png)
+
+## Roadmap 
+- [] Plot other useful values
+- [] Colors
+- [] Option to change the font
+- [] Memory autoscaling
+- [X] Spawn child processes to sample
