@@ -14,6 +14,7 @@ go get -u -v github.com/0x0f0f0f/memplot/cmd
 
 ```
 Usage of memplot:
+Any argument following the options will be interpreted as the command to spawn and sample
   -dur duration
     	total profiling time (default 10s)
   -height string

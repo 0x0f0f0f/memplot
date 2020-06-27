@@ -1,12 +1,13 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"github.com/0x0f0f0f/memplot"
 	"gonum.org/v1/plot/vg"
+	"log"
 	"os"
+	"os/exec"
 	"time"
 )
 
@@ -23,6 +24,12 @@ func main() {
 		PlotVsz: false,
 	}
 
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Any argument following the options will be"+
+			" interpreted as the command to spawn and sample\n")
+		flag.PrintDefaults()
+	}
 	// Default sample duration time
 	defaultSd, err := time.ParseDuration("5ms")
 	check(err)
@@ -45,10 +52,26 @@ func main() {
 
 	flag.Parse()
 
-	// Checks for valid flags
+	// Run the PID passed with the -pid flag or the arguments following options
 	if *pidPtr <= 0 {
-		panic(errors.New("Invalid PID. Please specify a PID using -pid flag"))
+		args := flag.Args()
+		if len(args) == 0 {
+			fmt.Fprintf(os.Stderr,
+				"Invalid PID. Please specify PID using -pid flag"+
+					" or specify a command to exec and sample\n")
+			flag.Usage()
+			os.Exit(1)
+		}
+		cmd := exec.Command(args[0], args[1:]...)
+		err := cmd.Start()
+		check(err)
+		*pidPtr = cmd.Process.Pid
+	} else {
+		if len(flag.Args()) > 0 {
+			log.Println("A pid was specified. Ignoring arguments")
+		}
 	}
+
 	widthImage, err := vg.ParseLength(*widthStr)
 	check(err)
 	heightImage, err := vg.ParseLength(*heightStr)

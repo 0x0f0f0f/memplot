@@ -37,7 +37,6 @@ func NewMemoryCollection(pid int32, sd, duration time.Duration) (*MemoryCollecti
 	}
 
 	start := time.Now()
-	elapsed := time.Since(start)
 	var mem *process.MemoryInfoStat
 	coll := &MemoryCollection{
 		Pid:            pid,
@@ -46,7 +45,7 @@ func NewMemoryCollection(pid int32, sd, duration time.Duration) (*MemoryCollecti
 		Samples:        make([]MemoryInstant, 0),
 	}
 
-	for elapsed <= duration {
+	for elapsed := time.Since(start); elapsed <= duration; elapsed = time.Since(start) {
 		elapsed = time.Since(start)
 		mem, err = proc.MemoryInfo()
 		if err != nil {
