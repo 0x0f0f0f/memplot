@@ -9,7 +9,7 @@ Supported image extensions are: .eps, .jpg, .jpeg, .pdf, .png, .svg, .tex, .tif 
 Binaries for Linux and MacOS are available in the
 [releases](https://github.com/0x0f0f0f/memplot/releases) page
 ```
-go get -u -v github.com/0x0f0f0f/memplot/cmd
+go get -u -v github.com/0x0f0f0f/memplot/cmd/memplot
 ```
 
 ## Usage
