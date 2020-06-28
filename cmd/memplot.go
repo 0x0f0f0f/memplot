@@ -82,8 +82,7 @@ func main() {
 			err := cmd.Start()
 			check(err)
 			pidChan <- cmd.Process.Pid
-			err = cmd.Wait()
-			check(err)
+			cmd.Wait()
 		}()
 		*pidPtr = <-pidChan
 	} else {
@@ -95,7 +94,7 @@ func main() {
 	// Create and sample
 	fmt.Fprintln(os.Stderr, "Collecting data from PID", *pidPtr, "...")
 	if *durPtr == 0 {
-		fmt.Fprintln(os.Stderr, "Warning: sampling will continue"+
+		fmt.Fprintln(os.Stderr, "Warning: sampling will continue "+
 			"until program is no longer running")
 	}
 	coll, err := memplot.NewCollection(int32(*pidPtr), *sdPtr, *durPtr)
