@@ -9,7 +9,7 @@ require (
 	github.com/jung-kurt/gofpdf v1.16.2 // indirect
 	github.com/shirou/gopsutil v2.20.5+incompatible
 	golang.org/x/image v0.0.0-20200618115811-c13761719519 // indirect
-	golang.org/x/sys v0.0.0-20200622214017-ed371f2e16b4 // indirect
+	golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae // indirect
 	gonum.org/v1/netlib v0.0.0-20200603212716-16abd5ac5bc7 // indirect
 	gonum.org/v1/plot v0.7.0
 )

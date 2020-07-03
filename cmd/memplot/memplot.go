@@ -29,6 +29,7 @@ func main() {
 	opts := memplot.PlotOptions{
 		PlotRss: true,
 		PlotVsz: false,
+		// PlotNumThreads: false,
 	}
 
 	flag.Usage = func() {
@@ -55,6 +56,7 @@ func main() {
 		" that the program\nwill be sampled until it is no longer running")
 	// To plot or not VSZ
 	flag.BoolVar(&opts.PlotVsz, "vsz", false, "plot virtual size")
+	// flag.BoolVar(&opts.PlotNumThreads, "nthreads", false, "plot the number of threads")
 	widthStr := flag.String("width", "16cm", "plot image width (can be cm or in)")
 	heightStr := flag.String("height", "12cm", "plot image height (can be cm or in)")
 

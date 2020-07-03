@@ -11,9 +11,10 @@ import (
 	"time"
 )
 
-// Memory data for a given instant
+// Process data for a given instant
 type Instant struct {
 	MemoryInfo *process.MemoryInfoStat
+	NumThreads int32
 	Instant    time.Duration
 }
 
@@ -38,6 +39,7 @@ func NewCollection(pid int32, sd, dur time.Duration) (*Collection, error) {
 
 	start := time.Now()
 	var mem *process.MemoryInfoStat
+	var nthreads int32
 	coll := &Collection{
 		Pid:            pid,
 		StartTime:      start,
@@ -55,10 +57,15 @@ func NewCollection(pid int32, sd, dur time.Duration) (*Collection, error) {
 		if err != nil {
 			return nil, err
 		}
+		nthreads, err = proc.NumThreads()
+		if err != nil {
+			return nil, err
+		}
 
 		instant := Instant{
 			MemoryInfo: mem,
 			Instant:    el,
+			NumThreads: nthreads,
 		}
 
 		coll.Samples = append(coll.Samples, instant)
@@ -97,6 +104,7 @@ func (m *Collection) GatherVSZXYs() plotter.XYs {
 type PlotOptions struct {
 	PlotRss bool
 	PlotVsz bool
+	// PlotNumThreads bool
 }
 
 // Plot a memory collection
